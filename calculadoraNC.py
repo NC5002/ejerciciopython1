@@ -1,6 +1,4 @@
 """Ejercicio Calculadora NC con historial y logaritmo"""
-import tkinter as tk
-from tkinter import messagebox
 import math
 
 # Definición de funciones para operaciones

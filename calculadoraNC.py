@@ -1,4 +1,6 @@
-"""Ejercicio Calculadora NC"""
+"""Ejercicio Calculadora NC con historial y logaritmo"""
+import tkinter as tk
+from tkinter import messagebox
 import math
 
 # Definición de funciones para operaciones
@@ -42,6 +44,17 @@ def coseno(x):
 def tangente(x):
     return math.tan(math.radians(x))
 
+
+def logaritmo(x):
+    if x > 0:
+        return math.log(x)
+    else:
+        return "Error: El logaritmo solo está definido para números positivos"
+
+
+# Lista para almacenar el historial de operaciones
+historial = []
+
 # Función principal de la calculadora
 
 
@@ -57,15 +70,18 @@ def calculadora_avanzada():
     print("7. Seno")
     print("8. Coseno")
     print("9. Tangente")
-    print("10. Salir")
+    print("10. Ver Historial")
+    print("11. Logaritmo")
+    print("12. Salir")
 
     while True:
-        opcion = input("Selecciona una operación (1-10): ")
+        opcion = input("Selecciona una operación (1-12): ")
 
-        if opcion == "10":
-            print("Gracias por usar la calculadora de NC. ¡Hata pronto!")
+        if opcion == "12":
+            print("Gracias por usar la calculadora avanzada. ¡Adiós!")
             break
 
+        # Operaciones binarias (requieren dos números)
         if opcion in ["1", "2", "3", "4", "5", "6"]:
             try:
                 num1 = float(input("Ingresa el primer número: "))
@@ -75,32 +91,67 @@ def calculadora_avanzada():
                 continue
 
             if opcion == "1":
-                print("Resultado:", sumar(num1, num2))
+                resultado = sumar(num1, num2)
+                print("Resultado:", resultado)
+                historial.append(f"Suma: {num1} + {num2} = {resultado}")
             elif opcion == "2":
-                print("Resultado:", restar(num1, num2))
+                resultado = restar(num1, num2)
+                print("Resultado:", resultado)
+                historial.append(f"Resta: {num1} - {num2} = {resultado}")
             elif opcion == "3":
-                print("Resultado:", multiplicar(num1, num2))
+                resultado = multiplicar(num1, num2)
+                print("Resultado:", resultado)
+                historial.append(f"Multiplicación: {
+                                 num1} * {num2} = {resultado}")
             elif opcion == "4":
-                print("Resultado:", dividir(num1, num2))
+                resultado = dividir(num1, num2)
+                print("Resultado:", resultado)
+                historial.append(f"División: {num1} / {num2} = {resultado}")
             elif opcion == "5":
-                print("Resultado:", potencia(num1, num2))
+                resultado = potencia(num1, num2)
+                print("Resultado:", resultado)
+                historial.append(f"Potencia: {num1} ** {num2} = {resultado}")
             elif opcion == "6":
-                print("Resultado:", modulo(num1, num2))
-        elif opcion in ["7", "8", "9"]:
+                resultado = modulo(num1, num2)
+                print("Resultado:", resultado)
+                historial.append(f"Módulo: {num1} % {num2} = {resultado}")
+
+        # Operaciones unarias (requieren solo un número)
+        elif opcion in ["7", "8", "9", "11"]:
             try:
-                num = float(input("Ingresa el ángulo en grados: "))
+                if opcion == "11":
+                    num = float(input("Ingresa el número para el logaritmo: "))
+                else:
+                    num = float(input("Ingresa el ángulo en grados: "))
             except ValueError:
                 print("Error: Ingresa un valor numérico válido.")
                 continue
 
             if opcion == "7":
-                print("Resultado (seno):", seno(num))
+                resultado = seno(num)
+                print("Resultado (seno):", resultado)
+                historial.append(f"Seno: sin({num}) = {resultado}")
             elif opcion == "8":
-                print("Resultado (coseno):", coseno(num))
+                resultado = coseno(num)
+                print("Resultado (coseno):", resultado)
+                historial.append(f"Coseno: cos({num}) = {resultado}")
             elif opcion == "9":
-                print("Resultado (tangente):", tangente(num))
+                resultado = tangente(num)
+                print("Resultado (tangente):", resultado)
+                historial.append(f"Tangente: tan({num}) = {resultado}")
+            elif opcion == "11":
+                resultado = logaritmo(num)
+                print("Resultado (logaritmo):", resultado)
+                historial.append(f"Logaritmo: log({num}) = {resultado}")
+
+        # Ver historial de operaciones
+        elif opcion == "10":
+            print("Historial de operaciones:")
+            for operacion in historial:
+                print(operacion)
+
         else:
-            print("Opción no válida. Por favor, elige una opción entre 1 y 10.")
+            print("Opción no válida. Por favor, elige una opción entre 1 y 12.")
 
 
 # Ejecutar la calculadora
